@@ -26,9 +26,7 @@ under the License.
    <core xmlns="urn:activemq:core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="urn:activemq:core ">
 
-     <!-- Changed via S2I by ABEL -->
-     
-      <name>broker-s2i</name>
+      <name>broker</name>
 
 
       <persistence-enabled>true</persistence-enabled>
@@ -40,13 +38,13 @@ under the License.
        -->
       <journal-type>NIO</journal-type>
 
-      <paging-directory>data/paging</paging-directory>
+      <paging-directory>/opt/amq/data/paging</paging-directory>
 
-      <bindings-directory>data/bindings</bindings-directory>
+      <bindings-directory>/opt/amq/data/bindings</bindings-directory>
 
-      <journal-directory>data/journal</journal-directory>
+      <journal-directory>/opt/amq/data/journal</journal-directory>
 
-      <large-messages-directory>data/large-messages</large-messages-directory>
+      <large-messages-directory>/opt/amq/data/large-messages</large-messages-directory>
 
       <journal-datasync>true</journal-datasync>
 
@@ -55,17 +53,17 @@ under the License.
       <journal-pool-files>10</journal-pool-files>
 
       <journal-file-size>10M</journal-file-size>
-
+      
       <!--
        This value was determined through a calculation.
-       Your system could perform 0.29 writes per millisecond
+       Your system could perform 2.6 writes per millisecond
        on the current journal configuration.
-       That translates as a sync write every 3504000 nanoseconds.
+       That translates as a sync write every 384000 nanoseconds.
 
        Note: If you specify 0 the system will perform writes directly to the disk.
              We recommend this to be 0 if you are using journalType=MAPPED and journal-datasync=false.
       -->
-      <journal-buffer-timeout>3504000</journal-buffer-timeout>
+      <journal-buffer-timeout>384000</journal-buffer-timeout>
 
 
       <!--
@@ -152,22 +150,40 @@ under the License.
          <!-- MQTT Acceptor -->
          <acceptor name="mqtt">tcp://0.0.0.0:1883?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=MQTT;useEpoll=true</acceptor>
 
+            <acceptor name="artemis-ssl">tcp://0.0.0.0:61617?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;connectionsAllowed=1000;sslEnabled=true;keyStorePath=/etc/amq-secret-volume/broker.ks;keyStorePassword=broker</acceptor>
+            <acceptor name="amqp-ssl">tcp://0.0.0.0:5671?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=AMQP;useEpoll=true;amqpCredits=1000;amqpMinCredits=300;connectionsAllowed=1000;sslEnabled=true;keyStorePath=/etc/amq-secret-volume/broker.ks;keyStorePassword=broker</acceptor>
+            <acceptor name="stomp-ssl">tcp://0.0.0.0:61612?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=STOMP;useEpoll=true;connectionsAllowed=1000;sslEnabled=true;keyStorePath=/etc/amq-secret-volume/broker.ks;keyStorePassword=broker</acceptor>
+            <acceptor name="mqtt-ssl">tcp://0.0.0.0:8883?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;protocols=MQTT;useEpoll=true;connectionsAllowed=1000;sslEnabled=true;keyStorePath=/etc/amq-secret-volume/broker.ks;keyStorePassword=broker</acceptor>
+
       </acceptors>
 
 
       <security-settings>
          <security-setting match="#">
-            <permission type="createNonDurableQueue" roles="admin"/>
-            <permission type="deleteNonDurableQueue" roles="admin"/>
-            <permission type="createDurableQueue" roles="admin"/>
-            <permission type="deleteDurableQueue" roles="admin"/>
-            <permission type="createAddress" roles="admin"/>
-            <permission type="deleteAddress" roles="admin"/>
-            <permission type="consume" roles="admin"/>
-            <permission type="browse" roles="admin"/>
-            <permission type="send" roles="admin"/>
+            <permission type="createNonDurableQueue" roles="uoabrokergroup"/>
+            <permission type="deleteNonDurableQueue" roles="uoabrokergroup"/>
+            <permission type="createDurableQueue" roles="uoabrokergroup"/>
+            <permission type="deleteDurableQueue" roles="uoabrokergroup"/>
+            <permission type="createAddress" roles="uoabrokergroup"/>
+            <permission type="deleteAddress" roles="uoabrokergroup"/>
+            <permission type="consume" roles="uoabrokergroup"/>
+            <permission type="browse" roles="uoabrokergroup"/>
+            <permission type="send" roles="uoabrokergroup"/>
             <!-- we need this otherwise ./artemis data imp wouldn't work -->
-            <permission type="manage" roles="admin"/>
+            <permission type="manage" roles="uoabrokergroup"/>
+         </security-setting>
+         <!-- MyUni Admin queue -->
+         <security-setting match="student.enrolment.update.queue#">
+            <permission type="createNonDurableQueue" roles="myunip,myunic"/>
+            <permission type="deleteNonDurableQueue" roles="myunip,myunic"/>
+            <permission type="createDurableQueue" roles="myunip,myunic"/>
+            <permission type="deleteDurableQueue" roles="myunip,myunic"/>
+            <permission type="createAddress" roles="myunip,myunic"/>
+            <permission type="deleteAddress" roles="myunip,myunic"/>
+            <permission type="consume" roles="myunip,myunic"/>
+            <permission type="browse" roles="myunip,myunic"/>
+            <permission type="send" roles="myunip"/>
+            <permission type="manage" roles="myunip,myunic"/>
          </security-setting>
       </security-settings>
 
@@ -213,17 +229,6 @@ under the License.
                <queue name="ExpiryQueue" />
             </anycast>
          </address>
-         <address name="demoQueue">
-            <anycast>
-               <queue name="demoQueue" />
-            </anycast>
-         </address>
-         <address name="s2iQueue">
-            <anycast>
-               <queue name="s2iQueue" />
-            </anycast>
-         </address>
-         <address name="demoTopic"/>
 
       </addresses>
 
