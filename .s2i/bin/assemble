@@ -9,7 +9,8 @@ if [ -d ${SRCBIN} ]; then
 
 chmod +x ${SRCBIN}/*
 
-cp -v ${SRCBIN}/* /home/jboss/broker/etc/ 
+cp -v ${SRCBIN}/* $ARTEMIS_INSTANCE/etc/
+####   /home/jboss/broker/etc/ 
 
 fi
 
