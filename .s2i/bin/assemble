@@ -9,7 +9,7 @@ if [ -d ${SRCBIN} ]; then
 
 chmod +x ${SRCBIN}/*
 
-cp -v ${SRCBIN}/* $AMQ_HOME/etc/
+cp -v ${SRCBIN}/* /home/jboss/broker/etc/ 
 
 fi
 
