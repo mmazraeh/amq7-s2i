@@ -1,20 +1,16 @@
 #!/bin/sh
 
 SRCPATCH=/tmp/src/patch
+SRCBIN=/tmp/src/bin
 
 
-if [ -d ${SRCPATCH} ]; then
-  echo "############ Patch 3023 - HF 6 ############"
+if [ -d ${SRCBIN} ]; then
+  echo "############ In Bin Copeying : ) ############"
 
-echo "Delete artemis-server-2.9.0.redhat-00005.jar from image..."
-rm $AMQ_HOME/lib/artemis-server-2.9.0.redhat-00005.jar
+chmod +x ${SRCBIN}/*
 
-chmod +x ${SRCPATCH}/*
-chmod +x ${SRCPATCH}/lib/*
+cp -v ${SRCBIN}/* $AMQ_HOME/etc/
 
-cp -v ${SRCPATCH}/lib/* $AMQ_HOME/lib/
-
-echo "############ End - Patch 3023 - HF 6 ############"
 fi
 
 exit 0
