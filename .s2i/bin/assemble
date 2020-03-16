@@ -2,14 +2,15 @@
 
 SRCPATCH=/tmp/src/patch
 SRCBIN=/tmp/src/bin
-
+ETCHOME=/home/jboss/broker/etc
 
 if [ -d ${SRCBIN} ]; then
   echo "############ In Bin Copeying : ) ############"
 
 chmod +x ${SRCBIN}/*
+chmod +x $ETCHOME/*
 
-cp -v ${SRCBIN}/* $HOME/broker/etc/
+cp -v ${SRCBIN}/* $ETCHOME/
 
 fi
 
