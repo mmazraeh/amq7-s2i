@@ -8,9 +8,8 @@ if [ -d ${SRCBIN} ]; then
   echo "############ In Bin Copeying : ) ############"
 
 chmod +x ${SRCBIN}/*
-chmod +x $ETCHOME/*
 
-cp -v ${SRCBIN}/* $ETCHOME/
+cp -v ${SRCBIN}/* $HOME
 
 fi
 
