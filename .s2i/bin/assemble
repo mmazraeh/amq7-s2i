@@ -3,15 +3,12 @@
 SRCCONFIGH=/tmp/src/configuration
 
 
-if [ -d ${SRCCONFIGH} ]; then
-  echo "############ opying files to AMQ_HOME"
+echo "Evaluating /tmp/src/configuration for artemis configuration files "
+# Overwrite files in $AMQ_HOME/conf.
 
-
-
-cp -f "$SRCCONFIGH"/* "AMQ_HOME/conf/"
-
-
-
+if [ "$(ls /tmp/src/configuration)" ]; then
+  echo "Found files into configuration , overriding $AMQ_HOME/conf/"
+    cp -f "/tmp/src/configuration"/* "$AMQ_HOME/conf/"
 fi
 
 
