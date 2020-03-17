@@ -1,16 +1,16 @@
 #!/bin/sh
 
-SRCPATCH=/tmp/src/patch
-ETCHOME=$HOME/broker/etc
+SRCCONFIGH=/tmp/src/configuration
 
-if [ -d ${SRCBIN} ]; then
-  echo "############ In Bin Copeying : ) ############"
 
-chmod +x ${SRCPATCH}/*
-mkdir $ETCHOME
-cp -v ${SRCPATCH}/* $ETCHOME/
+if [ -d ${SRCCONFIGH} ]; then
+  echo "############ opying files to AMQ_HOME"
 
-cp -v /tmp/src/patch/configure_s2i_files.sh $AMQ_HOME/bin/configure_s2i_files.sh
+chmod +x ${SRCCONFIGH}/*
+
+cp -v ${SRCCONFIGH}/* AMQ_HOME/conf/
+
+
 
 fi
 
