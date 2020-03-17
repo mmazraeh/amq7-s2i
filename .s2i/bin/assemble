@@ -1,16 +1,20 @@
 #!/bin/sh
 
-SRCPATCH=/tmp/src/patch
-SRCBIN=/tmp/src/bin
-ETCHOME=$HOME/broker/etc
+#SRCPATCH=/tmp/src/patch
+#SRCBIN=/tmp/src/bin
+#ETCHOME=$HOME/broker/etc
 
-if [ -d ${SRCBIN} ]; then
-  echo "############ In Bin Copeying : ) ############"
+#if [ -d ${SRCBIN} ]; then
+#  echo "############ In Bin Copeying : ) ############"
 
-chmod +x ${SRCBIN}/*
-mkdir $ETCHOME
-cp -v ${SRCBIN}/* $ETCHOME/
+#chmod +x ${SRCBIN}/*
+#mkdir $ETCHOME
+#cp -v ${SRCBIN}/* $ETCHOME/
 
-fi
+#fi
+
+# move the application source
+mv /tmp/src/configuration/* $HOME/broker/etc
+
 
 exit 0
