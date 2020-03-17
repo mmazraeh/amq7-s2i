@@ -1,20 +1,18 @@
 #!/bin/sh
 
-#SRCPATCH=/tmp/src/patch
-#SRCBIN=/tmp/src/bin
-#ETCHOME=$HOME/broker/etc
+SRCPATCH=/tmp/src/patch
+ETCHOME=$HOME/broker/etc
 
-#if [ -d ${SRCBIN} ]; then
-#  echo "############ In Bin Copeying : ) ############"
+if [ -d ${SRCBIN} ]; then
+  echo "############ In Bin Copeying : ) ############"
 
-#chmod +x ${SRCBIN}/*
-#mkdir $ETCHOME
-#cp -v ${SRCBIN}/* $ETCHOME/
+chmod +x ${SRCPATCH}/*
+mkdir $ETCHOME
+cp -v ${SRCPATCH}/* $ETCHOME/
 
-#fi
+cp -v /tmp/src/patch/configure_s2i_files.sh $AMQ_HOME/bin/configure_s2i_files.sh
 
-# move the application source
-mv /tmp/src/configuration/* $HOME/broker/etc
+fi
 
 
 exit 0
