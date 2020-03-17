@@ -6,9 +6,9 @@ SRCCONFIGH=/tmp/src/configuration
 if [ -d ${SRCCONFIGH} ]; then
   echo "############ opying files to AMQ_HOME"
 
-chmod +x ${SRCCONFIGH}/*
 
-cp -v ${SRCCONFIGH}/* AMQ_HOME/conf/
+
+cp -v ${SRCCONFIGH}/* AMQ_HOME/conf
 
 
 
