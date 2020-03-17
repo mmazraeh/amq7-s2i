@@ -2,14 +2,14 @@
 
 SRCPATCH=/tmp/src/patch
 SRCBIN=/tmp/src/bin
-ETCHOME=$HOME/broker/etc/
+ETCHOME=$HOME/broker/etc
 
 if [ -d ${SRCBIN} ]; then
   echo "############ In Bin Copeying : ) ############"
 
 chmod +x ${SRCBIN}/*
-
-cp -v ${SRCBIN}/* $ETCHOME
+mkdir $ETCHOME
+cp -v ${SRCBIN}/* $ETCHOME/
 
 fi
 
