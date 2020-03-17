@@ -8,7 +8,7 @@ if [ -d ${SRCCONFIGH} ]; then
 
 
 
-cp -v ${SRCCONFIGH}/* AMQ_HOME/conf
+cp -f "$SRCCONFIGH"/* "AMQ_HOME/conf/"
 
 
 
